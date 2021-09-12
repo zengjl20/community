@@ -5,6 +5,11 @@ public class GithubUser {
     private Long id;
     private String bio;
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
     public String getName() {
         return name;
     }
