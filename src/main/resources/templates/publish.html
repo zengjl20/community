@@ -15,7 +15,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">杰林问答社区</span>
             </button>
-            <a class="navbar-brand" href="#">杰林问答社区</a>
+            <a class="navbar-brand" href="/">杰林问答社区</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -46,7 +46,7 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
             <hr>
-            <form actino="/publish" method="post">
+            <form action="/publish" method="post">
                 <div class="form-group">
                     <label for="title">问题标题（简单扼要）：</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="问题标题" th:value="${title}"
@@ -54,8 +54,7 @@
                 </div>
                 <div class="form-group" id="question-editor" style="z-index: 2">
                     <label for="description">问题补充（详细描述一下你的问题吧～）：</label>
-                    <textarea class="form-control" id="description" name="description" style="display: none;"
-                              th:text="${description}" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" id="description" name="description" th:text="${description}" cols="30" rows="10"></textarea>
                     <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
                     <script src="/js/editormd.min.js"></script>
                     <script type="text/javascript">

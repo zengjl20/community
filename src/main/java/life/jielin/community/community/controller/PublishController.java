@@ -58,6 +58,7 @@ public class PublishController {
                 user = userMapper.findByToken(token);
                 if(user != null){
                     request.getSession().setAttribute("user", user);
+                    System.out.println(user);
                 }
                 break;
             }
@@ -68,6 +69,8 @@ public class PublishController {
         question.setDescription(description);
         question.setTag(tag);
         question.setCreator(user.getId());
+        question.setGmtCreated(System.currentTimeMillis());
+        question.setGmtModified(user.getGmtCreated());
         questionMapper.create(question);
         return "redirect:/";
     }
