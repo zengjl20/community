@@ -11,7 +11,7 @@ public class QuestionDTO {
     private String tag;
     private Long gmtCreated;
     private Long gmtModified;
-    private Integer creator;
+    private String creator;
     private Integer viewCount;
     private Integer commentCount;
     private Integer likeCount;
