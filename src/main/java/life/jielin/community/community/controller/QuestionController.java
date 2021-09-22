@@ -30,6 +30,7 @@ public class QuestionController {
         Integer questionId = null;
         questionId = Integer.parseInt(id);
         QuestionDTO questionDTO = questionService.getById(questionId);
+        questionService.incView(questionDTO.getId());
         model.addAttribute("question", questionDTO);
         return "question";
     }
