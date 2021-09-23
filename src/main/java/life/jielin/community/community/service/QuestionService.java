@@ -2,6 +2,7 @@ package life.jielin.community.community.service;
 
 import life.jielin.community.community.dto.PaginationDTO;
 import life.jielin.community.community.dto.QuestionDTO;
+import life.jielin.community.community.exception.CustomizeErrorCode;
 import life.jielin.community.community.exception.CustomizeException;
 import life.jielin.community.community.mapper.QuestionExtMapper;
 import life.jielin.community.community.mapper.QuestionMapper;
@@ -51,7 +52,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO listById(String accountId, Integer page, Integer size) {
+    public PaginationDTO listById(Long accountId, Integer page, Integer size) {
         Integer offset = size * (page - 1);
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria()
@@ -76,10 +77,10 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public QuestionDTO getById(Integer questionId) {
+    public QuestionDTO getById(Long questionId) {
         Question question = questionMapper.selectByPrimaryKey(questionId);
         if(question == null){
-            throw new CustomizeException("你找的问题不在了");
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
@@ -104,11 +105,14 @@ public class QuestionService {
             QuestionExample questionExample = new QuestionExample();
             questionExample.createCriteria()
                     .andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+            int update = questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+            if(update != 1){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 
-    public void incView(Integer id) {
+    public void incView(Long id) {
         Question question = new Question();
         question.setId(id);
         question.setViewCount(1);
