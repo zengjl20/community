@@ -1,5 +1,7 @@
 package life.jielin.community.community.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import life.jielin.community.community.cache.TagCache;
 import life.jielin.community.community.dto.QuestionDTO;
 import life.jielin.community.community.mapper.QuestionMapper;
 import life.jielin.community.community.mapper.UserMapper;
@@ -23,7 +25,8 @@ public class PublishController {
     private QuestionService questionService;
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model){
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
