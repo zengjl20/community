@@ -1,7 +1,9 @@
 package life.jielin.community.community.controller;
 
 import life.jielin.community.community.dto.CommentCreateDTO;
+import life.jielin.community.community.dto.CommentDTO;
 import life.jielin.community.community.dto.ResultDTO;
+import life.jielin.community.community.enums.CommentTypeEnum;
 import life.jielin.community.community.exception.CustomizeErrorCode;
 import life.jielin.community.community.exception.CustomizeException;
 import life.jielin.community.community.model.Comment;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class CommentController {
@@ -40,5 +43,12 @@ public class CommentController {
         comment.setLikeCount(0);
         commentService.insert(comment);
         return ResultDTO.okOf();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}", method = RequestMethod.POST)
+    public ResultDTO<List> comments(@PathVariable(name = "id") Long id){
+        List<CommentDTO> commentDTOS = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+        return ResultDTO.okOf(commentDTOS);
     }
 }

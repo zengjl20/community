@@ -2,8 +2,7 @@ package life.jielin.community.community.controller;
 
 import life.jielin.community.community.dto.CommentDTO;
 import life.jielin.community.community.dto.QuestionDTO;
-import life.jielin.community.community.mapper.QuestionMapper;
-import life.jielin.community.community.model.User;
+import life.jielin.community.community.enums.CommentTypeEnum;
 import life.jielin.community.community.service.CommentService;
 import life.jielin.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +33,11 @@ public class QuestionController {
         questionId = Long.parseLong(id);
         QuestionDTO questionDTO = questionService.getById(questionId);
         questionService.incView(questionDTO.getId());
-        List<CommentDTO> commentDTOList = commentService.listByQuestionId(questionId);
+        List<QuestionDTO> relatedQuestions = questionService.selectRelated(questionDTO);
+        List<CommentDTO> commentDTOList = commentService.listByTargetId(questionId, CommentTypeEnum.QUESTION);
         model.addAttribute("question", questionDTO);
         model.addAttribute("comments", commentDTOList);
+        model.addAttribute("relatedQuestions", relatedQuestions);
         return "question";
     }
 }
