@@ -1,6 +1,6 @@
-##QA community
+## QA community
 
-##资 料 
+## 资 料 
 
-##bash
+## bash
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
